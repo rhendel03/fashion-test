@@ -12,11 +12,6 @@ export class SalesController {
     return this.salesService.createRecord(createRecordDto);
   }
 
-  @Post()
-  create(@Body() createSaleDto: CreateSaleDto) {
-    return this.salesService.create(createSaleDto);
-  }
-
   @Get()
   findAll() {
     return this.salesService.findAll();
