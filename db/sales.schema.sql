@@ -1,0 +1,13 @@
+CREATE TABLE Sale (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+userName VARCHAR(30) NOT NULL,
+age INT(6) NOT NULL,
+height INT(30) NOT NULL,
+gender VARCHAR(30) NOT NULL,
+sales VARCHAR(50) NOT NULL,
+lastPurchaseDate DATE,
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO Sales (userName, age, height, gender, sales, lastPurchaseDate)
+VALUES ("rhendel03", 24, 170, "male", "YY-882829203", "2022-01-30 22:33:54");
