@@ -1,16 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+
 import { SalesService } from './sales.service';
-import { CreateSaleDto } from './dto/create-sale.dto';
 import { CreateRecordDto } from './dto/create-record.dto';
+import { diskStorage } from 'multer';
 
 @Controller('sales')
 export class SalesController {
   constructor(private readonly salesService: SalesService) {}
 
   @Post('record')
-  createRecord(@Body() createRecordDto : CreateRecordDto){
-    return this.salesService.createRecord(createRecordDto);
-  }
+    @UseInterceptors(FileInterceptor('file_asset', { storage : diskStorage({ destination : './files' }) }))
+
+  createRecord(@UploadedFile() file: Express.Multer.File){
+    console.log(file);
+    return file;
+      //return this.salesService.createRecord(createRecordDto);
+    }
 
   @Get()
   findAll() {
