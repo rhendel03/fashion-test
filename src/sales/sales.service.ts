@@ -22,8 +22,12 @@ export class SalesService {
     return save;
   }
 
-  async findAll(): Promise<Sale[]> {
-    let sales = await this.salesRepository.find();
+  async findAll(query): Promise<Sale[]> {
+    let sales = await this.salesRepository
+      .query(`SELECT * FROM Sales WHERE lastPurchaseDate BETWEEN 
+        '${query.startDate}T00:00:00.00' AND '${query.endDate}T23:59:59.999'
+      `);
+      
     return sales;
   }
 

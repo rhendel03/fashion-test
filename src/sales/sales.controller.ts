@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Param, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { parse } from 'papaparse';
 import * as _ from 'lodash';
@@ -28,9 +28,10 @@ export class SalesController {
       return this.salesService.createRecord(parseCsv.data);
       }
 
-  @Get()
-  findAll() {
-    return this.salesService.findAll();
+  @Get('report/:startDate/:endDate')
+    findAll(@Param('startDate') startDate : string, @Param('endDate') endDate : string) {
+      let query = { startDate : startDate, endDate : endDate }
+    return this.salesService.findAll(query);
   }
 
   @Get(':id')
