@@ -4,9 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
 
-import { UpdateSaleDto } from './dto/update-sale.dto';
-import { CreateRecordDto } from './dto/create-record.dto';
-
 @Injectable()
 export class SalesService {
   constructor(
@@ -14,17 +11,15 @@ export class SalesService {
     private salesRepository: Repository<Sale>,
   ) {}
 
-  async createRecord(createRecordDto: CreateRecordDto) {
-    let record = new Sale();
-    record.userName = createRecordDto.userName;
-    record.age = createRecordDto.age;
-    record.height = createRecordDto.height;
-    record.gender = createRecordDto.gender;
-    record.sales = createRecordDto.sales;
-    record.lastPurchaseDate = createRecordDto.lastPurchaseDate;
+  async createRecord(salesData) {
+    let save = await this.salesRepository
+      .createQueryBuilder()
+      .insert()
+      .into(Sale)
+      .values(salesData)
+      .execute();
 
-    let saveRecord = await this.salesRepository.save(record);
-    return saveRecord;
+    return save;
   }
 
   async findAll(): Promise<Sale[]> {
@@ -36,11 +31,4 @@ export class SalesService {
     return this.salesRepository.findOne(id);
   }
 
-  update(id: number, updateSaleDto: UpdateSaleDto) {
-    return `This action updates a #${id} sale`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} sale`;
-  }
 }

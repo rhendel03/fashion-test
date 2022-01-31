@@ -24,10 +24,8 @@ export class SalesController {
         transformHeader: (header) => _.camelCase(header),
         complete: (results) => results.data
       });
-      
-      //return this.salesService.createRecord(createRecordDto);
 
-      return parseCsv;
+      return this.salesService.createRecord(parseCsv.data);
       }
 
   @Get()
@@ -40,8 +38,4 @@ export class SalesController {
     return this.salesService.findOne(+id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.salesService.remove(+id);
-  }
 }
