@@ -11,6 +11,15 @@ npm >= 6.4.1
 $ npm install
 ```
 
+## Database config
+```
+# First we have to create database in sql
+$sql CREATE DATABASE fashion;
+
+# ORM config can be found in /ormconfig.json
+
+```
+
 ## Running the app
 
 ```bash
@@ -29,4 +38,9 @@ $ npm run test
 # e2e tests
 $ npm run test:e2e
 
+```
+
+# Implementation / Planning 
+```
+Trello : https://trello.com/b/0i8XKugV/acn-code-assessment
 ```
